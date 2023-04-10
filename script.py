@@ -1,5 +1,6 @@
 import gradio as gr
 import os
+import yaml
 import json
 import modules.shared as shared
 import modules.chat as chat
@@ -95,15 +96,15 @@ def custom_generate_chat_prompt(user_input, max_new_tokens, name1, name2, contex
 def save_pairs():
     global pairs
     if shared.character is not None and shared.character != "None":
-        filename = f"characters/{shared.character}.json"
+        filename = f"characters/{shared.character}.yaml"
     else:
-        filename = "extensions/complex_memory/saved_memories.json"
+        filename = "extensions/complex_memory/saved_memories.yaml"
 
     # read the current character file
     if os.path.exists(filename):
         with open(filename, 'r') as f:
-            # Load the JSON data from the file into a Python dictionary
-            data = json.load(f)
+            # Load the YAML data from the file into a Python dictionary
+            data = yaml.safe_load(f)
     else:
         data = {}
 
@@ -112,7 +113,7 @@ def save_pairs():
 
     # write the character file again
     with open(filename, 'w') as f:
-        json.dump(data, f, indent=2)
+        yaml.safe_dump(data, f, indent=2)
 
     # with open(f"extensions/complex_memory/{filename}", 'wb') as f:
     #     pickle.dump(pairs, f)
@@ -141,14 +142,14 @@ def load_pairs():
     # load the character file and get the memory from it, if it exists.
     try:
         if shared.character is not None and shared.character != "None":
-            filename = f"characters/{shared.character}.json"
+            filename = f"characters/{shared.character}.yaml"
         else:
-            filename = "extensions/complex_memory/saved_memories.json"
+            filename = "extensions/complex_memory/saved_memories.yaml"
 
         # read the current character file
         with open(filename, 'r') as f:
-            # Load the JSON data from the file into a Python dictionary
-            data = json.load(f)
+            # Load the YAML data from the file into a Python dictionary
+            data = yaml.safe_load(f)
 
             if "memory" in data:
                 pairs = data["memory"]
