@@ -298,7 +298,7 @@ def ui():
     #                                         shared.gradio['display']]).then(pairs_loaded, None, memory_select)
 
     shared.gradio['character_menu'].change(load_character_complex_memory_hijack,
-                                           [shared.gradio[k] for k in ['character_menu', 'name1', 'name2', 'Chat mode']],
+                                           [shared.gradio[k] for k in ['character_menu', 'name1', 'name2', 'mode']],
                                            [shared.gradio[k] for k in ['name1', 'name2', 'character_picture', 'greeting', 'context', 'end_of_turn', 'display']]).then(pairs_loaded, None, memory_select)
     # Return the UI elements wrapped in a Gradio column
     # return c
